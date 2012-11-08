@@ -102,7 +102,7 @@ public void read() throws Exception {
 					
 					//myFileWriter = new FileWriter(newDir.getPath()+"\\"+contentType+storeFacetTemp+"Parser.java");
 					//myFileBuffer = new BufferedWriter(myFileWriter);
-					BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\c152783\\workspace\\JUnitAutomation\\src\\com\\automation\\Simple_Parser_Template.txt"));
+					BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\c152783\\git\\JUnitAutomation\\JUnitAutomation\\src\\com\\automation\\Simple_Parser_Template.txt"));
 					PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(newDir.getPath()+"\\"+contentType+storeFacetTemp+"Parser.java")));
 					while ((in_line = reader.readLine()) != null ){
 						in_line = in_line.replaceAll("@@ALL_LOWER_CONTENTTYPE@@", contentType.toLowerCase()); // sets the foldername
