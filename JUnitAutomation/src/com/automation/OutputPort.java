@@ -27,7 +27,7 @@ public class OutputPort {
 		String Temp1 ="";
 		
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\c152783\\workspace\\JUnitAutomation\\src\\com\\automation\\Simple_output_Template.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\c152783\\git\\JUnitAutomation\\JUnitAutomation\\src\\com\\automation\\Simple_output_template.txt"));
 			PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\c152783\\Desktop\\"+contentType.toLowerCase()+"streamdocuments\\"+contentType+"OutputPort.java")));
 			while ((in_line = reader.readLine()) != null ){
 				in_line = in_line.replaceAll("@@YEAR@@", ReadExcel.currYear());
