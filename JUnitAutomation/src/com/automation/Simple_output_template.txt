@@ -1,0 +1,21 @@
+package com.trgr.cobalt.metadoc.b2btransformation.profile;
+
+/*************************************************************************************
+ Copyright @@YEAR@@: Thomson Reuters Global Resources. All Rights Reserved.            
+ Proprietary and Confidential information of TRGR. Disclosure, Use or Reproduction 
+ without the written authorization of TRGR is prohibited.                          
+ *************************************************************************************/
+
+/**
+ * @@FIRSTCAPS_CONTENTTYPE@@ output ports.
+ * 
+ * @author AutomatedTestCase Generator
+ * @version 1.0
+ */
+public enum @@FIRSTCAPS_CONTENTTYPE@@OutputPort implements IB2BOutputPort {
+
+	out_DocGUID,
+	out_FootnoteFlag,
+	out_HeadnoteFlag,
+	out_ImageLink,
+	out_OriginalImageFlag,	
