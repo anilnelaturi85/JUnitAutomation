@@ -123,6 +123,13 @@ public void read() throws Exception {
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(storeXPath, 1, "DUMMY"))).
 								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						// no value test case
+						writer.printf("%s",
+								constant1.
+								replaceAll("@@TESTNAME@@", "missingValue").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(storeXPath, 1, ""))).
+								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						if(storeXPath.indexOf("*")>1){
 							// multiple repeating groups test case
 							writer.printf("%s",
@@ -174,6 +181,12 @@ public void read() throws Exception {
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(storeXPath, 1, "DUMMY"))).
 								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						// missing value testcase
+						writer.printf("%s",
+								constant1.replaceAll("@@TESTNAME@@", "missingValue").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(storeXPath, 1, ""))).
+								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						if(storeXPath.indexOf("*")>1){
 							// multiple repeating group test case
 							writer.printf("%s",
