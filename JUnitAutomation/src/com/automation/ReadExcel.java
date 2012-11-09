@@ -134,6 +134,15 @@ public void read() throws Exception {
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, ""))).
 								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						
+						// missing tags test case
+						writer.printf("%s",
+								constant1.
+								replaceAll("@@TESTNAME@@", z1.length>1?"missingTags"+(k+1):"missingTags").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn("", 1, ""))).
+								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						
 						if(z1[k].indexOf("*")>1){
 							// multiple repeating groups test case
 							writer.printf("%s",
@@ -191,6 +200,15 @@ public void read() throws Exception {
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, ""))).
 								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						
+						// missing tags test case
+						writer.printf("%s",
+								constant1.
+								replaceAll("@@TESTNAME@@", z1.length>1?"missingTags"+(k+1):"missingTags").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn("", 1, ""))).
+								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						
 						if(z1[k].indexOf("*")>1){
 							// multiple repeating group test case
 							writer.printf("%s",
@@ -301,10 +319,12 @@ public void read() throws Exception {
 	
 	
 	public static String xPathReturn(String xpath, int loops, String value){
+		String a3="";
+		
+		if(!xpath.isEmpty()){ 
 		String a1 = xpath.substring(1).trim();	
 		String[] a2 = a1.split("/");
-		String a3="";
-		String temp="";
+			
 		
 		for (int j = (a2.length-1); j >=0; j--) {
 			
@@ -314,8 +334,7 @@ public void read() throws Exception {
 				int myLoop = loops;
 				while (myLoop>0) {
 //					temp = "\n<"+a2[j]+" id=\\\\\"683752Retro42000\\\\\">"+value+"</"+a2[j]+">\n";
-					temp = "<"+a2[j].replace("*","")+" id=\\\\\"683752Retro42000\\\\\">"+value+"</"+a2[j].replace("*","")+">";
-					a3 =a3+temp;
+					a3 =a3+ "<"+a2[j].replace("*","")+" id=\\\\\"683752Retro42000\\\\\">"+value+"</"+a2[j].replace("*","")+">";
 					myLoop--;
 				}
 				value =a3;
@@ -332,6 +351,9 @@ public void read() throws Exception {
 		
 //		return "\""+temp+"\"";
 		//"\""+a3+"\""
+		} else {
+			a3="";
+		}
 		return a3;
 	}
 	
