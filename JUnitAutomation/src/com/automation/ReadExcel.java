@@ -173,12 +173,12 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"emSpace"+(k+1):"emSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, " Em Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn(" Em Space ", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("Em Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// en space
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"enSpace"+(k+1):"enSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, " En Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn(" En Space ", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("En Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						}
 						// linefeeds and tags
 						writer.printf("%s",
@@ -235,13 +235,13 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"emSpace"+(k+1):"emSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, " Em Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn(" Em Space ", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("Em Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// en space
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"enSpace"+(k+1):"enSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, " En Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn(" En Space ", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("En Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						}
 						writer.printf("%s",
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
