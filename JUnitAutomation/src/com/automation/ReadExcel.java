@@ -157,7 +157,7 @@ public void read() throws Exception {
 									replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", valueReplace(docBodyXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
-									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
 						}
 						if("Y".equalsIgnoreCase(storeFacetNeeded)){
 							
@@ -221,7 +221,7 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", valueReplace(metaDataXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
-									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
 						}
 						if("Y".equalsIgnoreCase(storeFacetNeeded)){
 							// 255 chars testcase
@@ -247,7 +247,7 @@ public void read() throws Exception {
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "     <bop></bop> DU\\\\n\\\\rMMY    </bos> "))).
-								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 2, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						writer.printf("%s", "}");
 					}
 					}
@@ -367,6 +367,7 @@ public void read() throws Exception {
 	public static String outputReturn(String input, int loops, String storeSaperate, String storeAllTogether, String storeAllTogetherSaperator, String storeFacetName){
 		int myLoops = loops;
 		String temp="";
+		if(!input.isEmpty()){
 		while(myLoops>0){
 			if("Y".equalsIgnoreCase(storeSaperate)){
 				temp = temp+storeFacetName+":"+input+"|*|";
@@ -381,6 +382,9 @@ public void read() throws Exception {
 			
 			
 			myLoops--;
+		}
+		} else {
+			temp="";
 		}
 		return temp.replaceAll(storeAllTogetherSaperator+"$","" );	
 	}
