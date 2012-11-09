@@ -197,6 +197,17 @@ public void read() throws Exception {
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, " En Space "))).
 									replaceAll("@@TESTOUT@@", outputReturn("En Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						}
+						
+						// for doc summary adding the 1000 char testcase
+						if("DocSummary".equalsIgnoreCase(storeFacetTemp)){
+							writer.printf("%s",
+									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"_1000CharsTest"+(k+1):"_1000CharsTest").
+									replaceAll("@@PORT_NAME@@", storeFacetTemp).
+									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 3, "This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.1004"))).
+									replaceAll("@@TESTOUT@@", outputReturn("This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its...", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+							writer.printf("%s", "}");
+						}
+						
 						// linefeeds and tags
 						writer.printf("%s",
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
@@ -204,6 +215,9 @@ public void read() throws Exception {
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "     <bop></bop> DU\\\\n\\\\rMMY    </bos> "))).
 								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						writer.printf("%s", "}");
+						
+						
+						
 					} else {
 						// simple testcase
 						writer.printf("%s",
