@@ -24,7 +24,7 @@ import java.util.*;
 public class ReadExcel {
 	// instance variables
 	public String inputFile ="";
-	public String contentType ="NewsAndAlerts"; 
+	public String contentType ="RandPTrans"; 
 	
 	
 	//methods
@@ -438,7 +438,7 @@ public void read() throws Exception {
 		
 	public static void main(String[] args) throws Exception{
 		ReadExcel myExcel = new ReadExcel();
-		myExcel.inputFile="C:/Users/c152783/Desktop/SecondarySources-NewsAndAlerts.xls";
+		myExcel.inputFile="C:/Users/c152783/Desktop/RandP_Transactions-RandPTrans.xls";
 		myExcel.read();
 		
 	}
