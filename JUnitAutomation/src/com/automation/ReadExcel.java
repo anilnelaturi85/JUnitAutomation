@@ -158,6 +158,23 @@ public void read() throws Exception {
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", valueReplace(docBodyXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
 									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
+						} else {
+							// this block is to simulate repeating groups testcase on xpath's which don't have repeating groups.. the output shld always be the first occurances of value
+							z1[k] = z1[k].concat("*");
+							// multiple repeating groups test case
+							writer.printf("%s",
+									constant1.
+									replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
+									replaceAll("@@PORT_NAME@@", storeFacetTemp).
+									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 3, "DUMMY"))).
+									replaceAll("@@TESTOUT@@", "DUMMY"));	
+							// multiple repeating groups with nulls
+							writer.printf("%s",
+									constant1.
+									replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
+									replaceAll("@@PORT_NAME@@", storeFacetTemp).
+									replaceAll("@@XPATH_DISPLAY@@", valueReplace(docBodyXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
+									replaceAll("@@TESTOUT@@", ""));
 						}
 						if("Y".equalsIgnoreCase(storeFacetNeeded)){
 							
@@ -222,6 +239,22 @@ public void read() throws Exception {
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", valueReplace(metaDataXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
 									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
+						} else {
+							// this block is to simulate repeating groups testcase on xpath's which don't have repeating groups.. the output shld always be the first occurances of value
+							z1[k] = z1[k].concat("*");
+							// multiple repeating group test case
+							writer.printf("%s",
+									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
+									replaceAll("@@PORT_NAME@@", storeFacetTemp).
+									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 3, "DUMMY"))).
+									replaceAll("@@TESTOUT@@", "DUMMY"));
+							// multiple repeating group test case with nulls
+							writer.printf("%s",
+									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
+									replaceAll("@@PORT_NAME@@", storeFacetTemp).
+									replaceAll("@@XPATH_DISPLAY@@", valueReplace(metaDataXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
+									replaceAll("@@TESTOUT@@", ""));
+							
 						}
 						if("Y".equalsIgnoreCase(storeFacetNeeded)){
 							// 255 chars testcase
