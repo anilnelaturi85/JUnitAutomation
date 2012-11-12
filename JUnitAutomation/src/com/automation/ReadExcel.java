@@ -19,6 +19,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class ReadExcel {
@@ -126,14 +128,14 @@ public void read() throws Exception {
 								replaceAll("@@TESTNAME@@", z1.length>1?"Simple"+(k+1):"Simple").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "DUMMY"))).
-								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						// no value test case
 						writer.printf("%s",
 								constant1.
 								replaceAll("@@TESTNAME@@", z1.length>1?"missingValue"+(k+1):"missingValue").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, ""))).
-								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", ""));
 						
 						// missing tags test case
 						writer.printf("%s",
@@ -141,7 +143,7 @@ public void read() throws Exception {
 								replaceAll("@@TESTNAME@@", z1.length>1?"missingTags"+(k+1):"missingTags").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn("", 1, ""))).
-								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", ""));
 						
 						if(z1[k].indexOf("*")>1){
 							// multiple repeating groups test case
@@ -150,14 +152,14 @@ public void read() throws Exception {
 									replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 2, "DUMMY"))).
-									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 2, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));	
+									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 2, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));	
 							// multiple repeating groups with nulls
 							writer.printf("%s",
 									constant1.
 									replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", valueReplace(docBodyXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
-									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
+									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", xPathReturn(z1[k], 3, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
 						} else {
 							// this block is to simulate repeating groups testcase on xpath's which don't have repeating groups.. the output shld always be the first occurances of value
 							z1[k] = z1[k].concat("*");
@@ -184,18 +186,18 @@ public void read() throws Exception {
 									replaceAll("@@TESTNAME@@", z1.length>1?"_256CHARS"+(k+1):"_256CHARS").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6 SIX6"))).
-									replaceAll("@@TESTOUT@@", outputReturn("here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6", xPathReturn(z1[k], 1, "here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// em space
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"emSpace"+(k+1):"emSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, " Em Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn("Em Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("Em Space", xPathReturn(z1[k], 1, "Em Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// en space
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"enSpace"+(k+1):"enSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, " En Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn("En Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("En Space", xPathReturn(z1[k], 1, "En Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						}
 						
 						// for doc summary adding the 1000 char testcase
@@ -204,7 +206,7 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"_1000CharsTest"+(k+1):"_1000CharsTest").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 3, "This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.1004"))).
-									replaceAll("@@TESTOUT@@", outputReturn("This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its...", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its...", xPathReturn(z1[k], 1, "This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its awesome.This text is 1000 characters long and its..."), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							writer.printf("%s", "}");
 						}
 						
@@ -213,7 +215,7 @@ public void read() throws Exception {
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "     <bop></bop> DU\\\\n\\\\rMMY    </bos> "))).
-								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						writer.printf("%s", "}");
 						
 						
@@ -224,13 +226,13 @@ public void read() throws Exception {
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Simple"+(k+1):"Simple").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "DUMMY"))).
-								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						// missing value testcase
 						writer.printf("%s",
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"missingValue"+(k+1):"missingValue").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, ""))).
-								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", ""));
 						
 						// missing tags test case
 						writer.printf("%s",
@@ -238,7 +240,7 @@ public void read() throws Exception {
 								replaceAll("@@TESTNAME@@", z1.length>1?"missingTags"+(k+1):"missingTags").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn("", 1, ""))).
-								replaceAll("@@TESTOUT@@", outputReturn("", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", ""));
 						
 						if(z1[k].indexOf("*")>1){
 							// multiple repeating group test case
@@ -246,13 +248,13 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 2, "DUMMY"))).
-									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 2, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 2, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// multiple repeating group test case with nulls
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", valueReplace(metaDataXpath(xPathReturn(z1[k], 3, "DUMMY")), "DUMMY")).
-									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", 3, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
+									replaceAll("@@TESTOUT@@", valueReplace(outputReturn("DUMMY", xPathReturn(z1[k], 3, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName), outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)+storeAllTogetherSaperator).trim()));
 						} else {
 							// this block is to simulate repeating groups testcase on xpath's which don't have repeating groups.. the output shld always be the first occurances of value
 							z1[k] = z1[k].concat("*");
@@ -276,25 +278,25 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"_256CHARS"+(k+1):"_256CHARS").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6 SIX6"))).
-									replaceAll("@@TESTOUT@@", outputReturn("here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6", xPathReturn(z1[k], 1, "here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  here is a string that is 256 characters long.  To test this the 255th character is a X, 256th character is a 6"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// em space
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"emSpace"+(k+1):"emSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, " Em Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn("Em Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("Em Space", xPathReturn(z1[k], 1, "Em Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// en space
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"enSpace"+(k+1):"enSpace").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, " En Space "))).
-									replaceAll("@@TESTOUT@@", outputReturn("En Space", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+									replaceAll("@@TESTOUT@@", outputReturn("En Space", xPathReturn(z1[k], 1, "En Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						}
 						writer.printf("%s",
 								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "     <bop></bop> DU\\\\n\\\\rMMY    </bos> "))).
-								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", 1, storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						writer.printf("%s", "}");
 					}
 					}
@@ -411,8 +413,17 @@ public void read() throws Exception {
 		
 		}
 	
-	public static String outputReturn(String input, int loops, String storeSaperate, String storeAllTogether, String storeAllTogetherSaperator, String storeFacetName){
-		int myLoops = loops;
+	public static String outputReturn(String input, String xPath, String storeSaperate, String storeAllTogether, String storeAllTogetherSaperator, String storeFacetName){
+		String myXpath = xPath;
+		int count = 0;
+		 Pattern pattern = Pattern.compile(input.trim());
+		 Matcher matcher = pattern.matcher(myXpath);
+		 while (matcher.find()) {
+			 count++;
+
+		    }
+		
+		int myLoops = count;
 		String temp="";
 		if(!input.isEmpty()){
 		while(myLoops>0){
