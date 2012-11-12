@@ -22,7 +22,7 @@ public class OutputPort {
 	// methods
 	public static void main (String[] args) throws Exception{
 		Workbook w;
-		String contentType ="NewsAndAlerts";
+		String contentType ="RandPTrans";
 		String in_line ="";
 		String Temp1 ="";
 		
@@ -36,7 +36,7 @@ public class OutputPort {
 			}
 			
 			try{
-				w = Workbook.getWorkbook(new File("C:/Users/c152783/Desktop/SecondarySources-NewsAndAlerts.xls"));
+				w = Workbook.getWorkbook(new File("C:/Users/c152783/Desktop/RandP_Transactions-RandPTrans.xls"));
 				Sheet s = w.getSheet(0);
 				for (int i = 1; i < s.getRows(); i++) {
 					String storeFacetName = s.getCell(1, i).getContents().trim();
