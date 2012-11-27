@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 public class ReadExcel {
 	// instance variables
 	public String inputFile ="";
-	public String contentType ="RandPTrans"; 
+	public String contentType =""; 
 	
 	
 	//methods
@@ -47,24 +47,39 @@ public void read() throws Exception {
 								"\t\tString expectedValue = \"@@TESTOUT@@\";\r\n"+
 								"\t\tassertEquals(expectedValue, outputPorts.get(out_@@PORT_NAME@@.name()).getValue());\r\n"+
 								"\t}\r\n";
+		String outputdirectory="";
 		File inputWorkbook = new File(inputFile);
-		File newDir = new File("C:/Users/c152783/Desktop/"+ contentType.toLowerCase()+"streamdocuments");
+		Workbook p;
+		try {
+			p = Workbook.getWorkbook(inputWorkbook);
+			Sheet Q = p.getSheet("CatalogInfo");
+			contentType = Q.getCell(0, 1).getContents().trim();
+			outputdirectory = Q.getCell(1, 1).getContents().trim();
+//			File newDir = new File(outputdirectory+"\\"+ contentType.toLowerCase()+"streamdocuments");
+//			newDir.mkdir();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		File newDir = new File(outputdirectory+"\\"+ contentType.toLowerCase()+"streamdocuments");
+		System.out.println("Output file directory: "+newDir.getAbsolutePath());
+//		File newDir = new File("C:/Users/c152783/Desktop/"+ contentType.toLowerCase()+"streamdocuments");
 		newDir.mkdir();	
 		String in_line =""; 
 		Workbook w;
 		try {
 			w = Workbook.getWorkbook(inputWorkbook);
 			Sheet S = w.getSheet("NFieldsInfo");
-			System.out.println("No of testfiles created are: "+S.getRows());
+			int count =0; // this is used to display the number of files generated
 			for (int i = 1; i < S.getRows(); i++) {
-//				System.out.println(S.getCell(1, i).getContents().trim());
+				// the below if is used to make sure parsers are not generated when cells are empty in excel
+				if(S.getCell(0, i).getContents().trim()!=null && S.getCell(0, i).getContents().trim().length()>0) {
 				String storeFacetNeeded = S.getCell(0, i).getContents().trim(); // to store if this particular field is a facet
-				String storeFacetName = S.getCell(1, i).getContents().trim(); // to store the facet field information
-				String storeDocBody  = S.getCell(2, i).getContents().trim(); // to store the docbody field value and use for later
-				String storeSaperate = S.getCell(4, i).getContents().trim();
-				String storeAllTogether = S.getCell(5, i).getContents().trim();
-				String storeAllTogetherSaperator = S.getCell(6, i).getContents();
-				String storeXPath  = S.getCell(8, i).getContents().trim(); // to store the xpath field information
+				String storeFacetName = S.getCell(2, i).getContents().trim(); // to store the facet field information
+				String storeDocBody  = S.getCell(3, i).getContents().trim(); // to store the docbody field value and use for later
+				String storeSaperate = S.getCell(5, i).getContents().trim();
+				String storeAllTogether = S.getCell(6, i).getContents().trim();
+				String storeAllTogetherSaperator = S.getCell(7, i).getContents();
+				String storeXPath  = S.getCell(9, i).getContents().trim(); // to store the xpath field information
 				
 				// splitting the facet name based on . and then captalizing the first character and then storing it for later use
 				String storeFacetTemp="";
@@ -312,7 +327,11 @@ public void read() throws Exception {
 				}
 				
 				System.out.println("Created Junit TestCase "+contentType+storeFacetTemp+"Parser.java");
+				
+				count++;
 			}
+			}
+			System.out.println("No of testfiles created are: "+count);
 			
 		} catch (BiffException e) {
 			e.printStackTrace();
@@ -449,8 +468,18 @@ public void read() throws Exception {
 		
 	public static void main(String[] args) throws Exception{
 		ReadExcel myExcel = new ReadExcel();
-		myExcel.inputFile="C:/Users/c152783/Desktop/RandP_Transactions-RandPTrans.xls";
-		myExcel.read();
+		if (args != null && args.length > 0){
+			myExcel.inputFile = args[0];
+			System.out.println("Input file name: " + args[0]);
+			myExcel.read();
+		}
+		else{
+			System.out.println("Input file name is required. Sorry cannot proceed!");
+			
+		}
+		
+//		myExcel.inputFile="C:/Users/c152783/Desktop/SEDI_Records-SEDI_example.xls";
+		
 		
 	}
 	
