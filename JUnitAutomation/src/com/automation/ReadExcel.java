@@ -155,7 +155,7 @@ public void read() throws Exception {
 						// missing tags test case
 						writer.printf("%s",
 								constant1.
-								replaceAll("@@TESTNAME@@", z1.length>1?"missingTags"+(k+1):"missingTags").
+								replaceAll("@@TESTNAME@@", z1.length>1?"missingXpath"+(k+1):"missingXpath").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn("", 1, ""))).
 								replaceAll("@@TESTOUT@@", ""));
@@ -164,7 +164,7 @@ public void read() throws Exception {
 							// multiple repeating groups test case
 							writer.printf("%s",
 									constant1.
-									replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
+									replaceAll("@@TESTNAME@@", z1.length>1?"Multiple"+(k+1):"Multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 2, "DUMMY"))).
 									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 2, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));	
@@ -181,7 +181,7 @@ public void read() throws Exception {
 							// multiple repeating groups test case
 							writer.printf("%s",
 									constant1.
-									replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
+									replaceAll("@@TESTNAME@@", z1.length>1?"Multiple"+(k+1):"Multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 3, "DUMMY"))).
 									replaceAll("@@TESTOUT@@", "DUMMY"));	
@@ -225,9 +225,26 @@ public void read() throws Exception {
 							writer.printf("%s", "}");
 						}
 						
+						// DataExists testcase
+						writer.printf("%s",
+								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"dataExists"+(k+1):"dataExists").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "Data &amp; Exist"))).
+								replaceAll("@@TESTOUT@@", outputReturn("Data &amp; Exist", xPathReturn(z1[k], 1, "Data &amp; Exist"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						writer.printf("%s", "}");
+						
+						// Leading Trailing space
+						writer.printf("%s",
+								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"leadingTrailSpace"+(k+1):"LeadingTrailSpace").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "   Ld Tr Space  "))).
+								replaceAll("@@TESTOUT@@", outputReturn("Ld Tr Space", xPathReturn(z1[k], 1, "Ld Tr Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						writer.printf("%s", "}");
+						
+															
 						// linefeeds and tags
 						writer.printf("%s",
-								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
+								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 1, "     <bop></bop> DU\\\\n\\\\rMMY    </bos> "))).
 								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
@@ -252,7 +269,7 @@ public void read() throws Exception {
 						// missing tags test case
 						writer.printf("%s",
 								constant1.
-								replaceAll("@@TESTNAME@@", z1.length>1?"missingTags"+(k+1):"missingTags").
+								replaceAll("@@TESTNAME@@", z1.length>1?"missingXpath"+(k+1):"missingXpath").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn("", 1, ""))).
 								replaceAll("@@TESTOUT@@", ""));
@@ -260,7 +277,7 @@ public void read() throws Exception {
 						if(z1[k].indexOf("*")>1){
 							// multiple repeating group test case
 							writer.printf("%s",
-									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
+									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Multiple"+(k+1):"Multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 2, "DUMMY"))).
 									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 2, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
@@ -275,7 +292,7 @@ public void read() throws Exception {
 							z1[k] = z1[k].concat("*");
 							// multiple repeating group test case
 							writer.printf("%s",
-									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multiple"+(k+1):"multiple").
+									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Multiple"+(k+1):"Multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 3, "DUMMY"))).
 									replaceAll("@@TESTOUT@@", "DUMMY"));
@@ -307,8 +324,25 @@ public void read() throws Exception {
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, " En Space "))).
 									replaceAll("@@TESTOUT@@", outputReturn("En Space", xPathReturn(z1[k], 1, "En Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 						}
+						
+						// data and exists test case for metadoc only elements
 						writer.printf("%s",
-								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
+								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"dataExists"+(k+1):"dataExists").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "Data &amp; Exist"))).
+								replaceAll("@@TESTOUT@@", outputReturn("Data &amp; Exist", xPathReturn(z1[k], 1, "Data &amp; Exist"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						writer.printf("%s", "}");
+						// Leading trail test case for metadoc only elements
+						writer.printf("%s",
+								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"leadingTrailSpace"+(k+1):"leadingTrailSpace").
+								replaceAll("@@PORT_NAME@@", storeFacetTemp).
+								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "   Ld Tr Space  "))).
+								replaceAll("@@TESTOUT@@", outputReturn("Ld Tr Space", xPathReturn(z1[k], 1, "Ld Tr Space"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
+						writer.printf("%s", "}");
+						
+						// test tags and spaces test case for metadoc only elements
+						writer.printf("%s",
+								constant1.replaceAll("@@TESTNAME@@", z1.length>1?"tags_LineFeed_MarginSpace"+(k+1):"Tags_LineFeed_MarginSpace").
 								replaceAll("@@PORT_NAME@@", storeFacetTemp).
 								replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 1, "     <bop></bop> DU\\\\n\\\\rMMY    </bos> "))).
 								replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
@@ -474,7 +508,7 @@ public void read() throws Exception {
 			myExcel.read();
 		}
 		else{
-			System.out.println("Input file name is required. Sorry cannot proceed!");
+			System.out.println("Please enter the Input file. Sorry cannot proceed!");
 			
 		}
 		
