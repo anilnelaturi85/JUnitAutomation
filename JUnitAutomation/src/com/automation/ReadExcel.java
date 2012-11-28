@@ -184,7 +184,7 @@ public void read() throws Exception {
 									replaceAll("@@TESTNAME@@", z1.length>1?"Multiple"+(k+1):"Multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", docBodyXpath(xPathReturn(z1[k], 3, "DUMMY"))).
-									replaceAll("@@TESTOUT@@", "DUMMY"));	
+									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));	
 							// multiple repeating groups with nulls
 							writer.printf("%s",
 									constant1.
@@ -295,7 +295,7 @@ public void read() throws Exception {
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"Multiple"+(k+1):"Multiple").
 									replaceAll("@@PORT_NAME@@", storeFacetTemp).
 									replaceAll("@@XPATH_DISPLAY@@", metaDataXpath(xPathReturn(z1[k], 3, "DUMMY"))).
-									replaceAll("@@TESTOUT@@", "DUMMY"));
+									replaceAll("@@TESTOUT@@", outputReturn("DUMMY", xPathReturn(z1[k], 1, "DUMMY"), storeSaperate, storeAllTogether, storeAllTogetherSaperator, storeFacetName)));
 							// multiple repeating group test case with nulls
 							writer.printf("%s",
 									constant1.replaceAll("@@TESTNAME@@", z1.length>1?"multipleNulls"+(k+1):"multipleNulls").
